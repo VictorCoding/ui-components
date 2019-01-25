@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, State, Prop } from '@stencil/core';
 
 @Component({
   tag: 'attachments-gallery',
@@ -6,66 +6,53 @@ import { Component, State } from '@stencil/core';
   shadow: true
 })
 export class AttachmentsGallery {
-
   @State() captionText = ''
+  @Prop() imagesProp = []
+  @State() images = []
 
-  images = [
-    {
-      url: 'https://ih0.redbubble.net/image.147730588.7244/flat,800x800,070,f.jpg',
-      captionText: 'falco'
-    },
-    {
-      url: 'https://www.ssbwiki.com/images/thumb/e/ee/Fox_SSBB.jpg/250px-Fox_SSBB.jpg',
-      captionText: 'fox'
-    },
-    {
-      url: 'https://www.ssbwiki.com/images/thumb/7/79/Marth_SSB4.png/250px-Marth_SSB4.png',
-      captionText: 'marth'
-    }
-  ];
   fileInput!: HTMLInputElement
   slideIndex = 0
+
+  componentWillLoad() {
+    this.images = this.imagesProp
+    this.showSlides(this.slideIndex)
+  }
 
   loadAttachment() {
     const file = this.fileInput.files[0]
     const reader = new FileReader()
     reader.onload = () => {
-      this.images.push({
+      this.images = [...this.images, {
         url: reader.result as string,
         captionText: file.name,
-      })
+      }]
     }
     reader.readAsDataURL(file)
   }
 
   plusSlides(direction: number) {
-    this.showSlides((this.slideIndex += direction));
+    this.showSlides((this.slideIndex += direction))
   }
 
   // Thumbnail image controls
   currentSlide(n) {
-    this.showSlides((this.slideIndex = n));
+    this.showSlides((this.slideIndex = n))
   }
 
   showSlides(n) {
     const slides = this.images.length;
-    // var dots = this.images.length;
 
     if (n > slides - 1) {
-      this.slideIndex = 0;
+      this.slideIndex = 0
     }
     if (n < slides && n !== -1) {
-      this.slideIndex = n;
+      this.slideIndex = n
     }
     if (n === -1) {
-      this.slideIndex = slides - 1;
+      this.slideIndex = slides - 1
     }
 
-    this.captionText = this.images[this.slideIndex].captionText;
-  }
-
-  componentWillLoad() {
-    this.showSlides(this.slideIndex);
+    this.captionText = this.images[this.slideIndex].captionText
   }
 
   render() {
@@ -97,8 +84,7 @@ export class AttachmentsGallery {
             ref={(el) => this.fileInput = el}
             class="file-input"
             onChange={() => this.loadAttachment()}
-            type="file"
-            title=""/>
+            type="file"/>
         </div>
 
         {/* thumbnail images */}

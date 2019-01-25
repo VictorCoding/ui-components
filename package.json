@@ -1,7 +1,7 @@
 {
   "name": "ui-components",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "description": "Web Components written with Stencil",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
   "unpkg": "dist/ionic.js",

@@ -12,8 +12,12 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface AttachmentsGallery {}
-  interface AttachmentsGalleryAttributes extends StencilHTMLAttributes {}
+  interface AttachmentsGallery {
+    'imagesProp': any;
+  }
+  interface AttachmentsGalleryAttributes extends StencilHTMLAttributes {
+    'imagesProp'?: any;
+  }
 
   interface MainContainer {}
   interface MainContainerAttributes extends StencilHTMLAttributes {}
