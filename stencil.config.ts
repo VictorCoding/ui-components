@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { less } from '@stencil/less';
 
 export const config: Config = {
-  namespace: 'mycomponent',
+  namespace: 'ui-components',
   outputTargets:[
     { type: 'dist' },
     { type: 'docs' },
